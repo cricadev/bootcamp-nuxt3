@@ -3,11 +3,19 @@
     <!-- CAR CARD-->
 
     <div
-      class="shadow border w-full overflow-hidden mb-5 cursor-pointer h-[200px]"
-      @click="navigateTo(`/car/${car.name}-${car.id}`)"
+      class="relative shadow border w-full overflow-hidden mb-5 cursor-pointer h-[200px]"
     >
-      <div class="flex h-full">
-        <img :src="car.url" alt="" />
+      <img
+        :src="favored ? heartFilled : heartOutline"
+        class="absolute w-7 right-5 top-2 z-20"
+        alt=""
+        @click="favored = !favored"
+      />
+      <div
+        class="flex h-full"
+        @click="navigateTo(`/car/${car.name}-${car.id}`)"
+      >
+        <nuxt-img :src="car.url" alt="" />
         <div class="flex flex-col p-4">
           <div class="">
             <h1 class="text-2xl text-blue-700">{{ car.name }}</h1>
@@ -24,12 +32,18 @@
 </template>
 
 <script setup lang="ts">
+import heartFilled from "@/assets/heartFilled.png";
+import heartOutline from "@/assets/heartOutline.png";
+console.log(heartFilled);
 const props = defineProps({
   car: {
     type: Object,
     required: true,
   },
 });
+const favored = useState(`favored-${props.car.id}`, () => {
+  return false;
+});
 </script>
-
+y
 <style scoped></style>

@@ -1,6 +1,5 @@
 <template>
   <div v-if="car">
-    {{ car }}
     <!-- ? CAR DETAIL PAGE-->
     <CarDetailHero :car="car"></CarDetailHero>
     <CarDetailAttrs :features="car.features"></CarDetailAttrs>

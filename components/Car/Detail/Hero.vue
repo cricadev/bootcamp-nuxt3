@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-10">
-      <img :src="car.url" alt="" class="" />
+      <nuxt-img :src="car.url" alt="" class="" />
       <h1 class="mt-10 text-4l">{{ car.name }}</h1>
       <div
         class="flex justify-between pb-5 mt-3 text-lg border-b text-slate-500"
