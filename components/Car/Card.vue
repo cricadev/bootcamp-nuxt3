@@ -9,7 +9,7 @@
         :src="favored ? heartFilled : heartOutline"
         class="absolute w-7 right-5 top-2 z-20"
         alt=""
-        @click="favored = !favored"
+        @click="emit('favor', car.id)"
       />
       <div
         class="flex h-full"
@@ -40,10 +40,16 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  favored: {
+    type: Boolean,
+    required: true,
+  },
 });
-const favored = useState(`favored-${props.car.id}`, () => {
+const emit = defineEmits(["favor"]);
+
+/* ! this does not works anymore since we change the way we handle the favorite cars const favored = useState(`favored-${props.car.id}`, () => {
   return false;
-});
+});*/
 </script>
 y
 <style scoped></style>

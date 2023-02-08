@@ -5,5 +5,6 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxtjs/color-mode",
     "@nuxt/image-edge",
+    "@vueuse/nuxt",
   ],
 });
