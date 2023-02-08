@@ -24,5 +24,4 @@ definePageMeta({
 });
 
 const { listings } = useCars();
-console.log(listings);
 </script>

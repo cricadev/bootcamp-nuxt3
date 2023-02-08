@@ -6,5 +6,6 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxt/image-edge",
     "@vueuse/nuxt",
+    "@nuxtjs/supabase",
   ],
 });

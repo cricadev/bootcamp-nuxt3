@@ -4,3 +4,9 @@
     <CarMessageCard></CarMessageCard> <CarMessageCard></CarMessageCard>
   </div>
 </template>
+
+<script setup>
+definePageMeta({
+  layout: "custom",
+});
+</script>
