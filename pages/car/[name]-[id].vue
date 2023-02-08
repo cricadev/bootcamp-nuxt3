@@ -11,9 +11,10 @@
 </template>
 
 <script setup lang="ts">
-const { cars } = useCars();
 const { toTitleCase } = useUtilities();
 const route = useRoute();
+
+const { data: car } = await useFetchCar(route.params.id);
 
 useHead({
   title: `${toTitleCase(route.params.name)}`,
@@ -24,10 +25,6 @@ useHead({
       content: "Car detail page",
     },
   ],
-});
-
-const car = computed(() => {
-  return cars.find((car) => car.id === parseInt(route.params.id));
 });
 
 if (!car.value) {
