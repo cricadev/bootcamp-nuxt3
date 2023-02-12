@@ -1,6 +1,8 @@
 <template>
   <div v-if="car">
     <!-- ? CAR DETAIL PAGE-->
+
+    {{ user.id }}
     <CarDetailHero :car="car"></CarDetailHero>
     <CarDetailAttrs :features="car.features"></CarDetailAttrs>
     <CarDetailDescription :description="car.description"></CarDetailDescription>
@@ -13,7 +15,7 @@
 <script setup lang="ts">
 const { toTitleCase } = useUtilities();
 const route = useRoute();
-
+const user = useSupabaseUser();
 const { data: car } = await useFetchCar(route.params.id);
 
 useHead({
