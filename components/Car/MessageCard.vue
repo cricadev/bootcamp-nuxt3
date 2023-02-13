@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
   message: Object,
 });
 </script>

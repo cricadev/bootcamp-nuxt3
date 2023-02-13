@@ -158,7 +158,7 @@ const handleClick = async () => {
     numberOfSeats: info.value.seats,
     name: `${info.value.make} ${info.value.model}`,
     listerId: user.value.id,
-    image: "asssssss",
+    image: data.path,
   };
   delete body.seats;
   try {
@@ -169,6 +169,7 @@ const handleClick = async () => {
     navigateTo("/profile/listings");
   } catch (err) {
     errorMessage.value = err.statusMessage;
+    await supabase.storage.from("images").remove(data.path);
   }
 };
 </script>

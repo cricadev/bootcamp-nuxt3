@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="mt-10">
-      <nuxt-img :src="car.image" alt="" class="" />
+      <nuxt-img
+        :src="`${config.public.supabase.url}/storage/v1/object/public/images/${car.image}`"
+        alt=""
+        class=""
+      />
       <h1 class="mt-10 text-4l">{{ car.name }}</h1>
       <div
         class="flex justify-between pb-5 mt-3 text-lg border-b text-slate-500"
@@ -24,6 +28,7 @@ const props = defineProps({
     required: true,
   },
 });
+const config = useRuntimeConfig();
 </script>
 
 <style scoped></style>
