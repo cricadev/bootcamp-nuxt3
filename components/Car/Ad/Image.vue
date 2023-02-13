@@ -27,6 +27,8 @@ const image = useState("carImage", () => {
     image: null,
   };
 });
+
+
 onMounted(() => {
   image.value = {
     preview: null,
@@ -47,4 +49,6 @@ const onImageUpload = (event) => {
     emits("changeInput", input.files[0], "image");
   }
 };
+
+
 </script>
