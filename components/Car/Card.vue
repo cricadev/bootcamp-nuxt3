@@ -15,7 +15,7 @@
         class="flex h-full"
         @click="navigateTo(`/car/${car.name}-${car.id}`)"
       >
-        <nuxt-img :src="car.url" alt="" />
+        <nuxt-img :src="car.image" alt="" />
         <div class="flex flex-col p-4">
           <div class="">
             <h1 class="text-2xl text-blue-700">{{ car.name }}</h1>

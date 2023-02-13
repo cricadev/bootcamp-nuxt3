@@ -13,6 +13,7 @@
         v-for="listing in listings"
         :key="listing.id"
         :listing="listing"
+        @deleteClick="handleDeleteClick"
       ></CarListingCard>
     </div>
   </div>
@@ -22,6 +23,16 @@
 definePageMeta({
   layout: "custom",
 });
+const user = useSupabaseUser();
 
-const { listings } = useCars();
+const { data: listings, refresh } = await useFetch(
+  `/api/car/listings/user/${user.value.id}`
+);
+console.log(listings);
+const handleDeleteClick = async (id) => {
+  await $fetch(`/api/car/listings/${id}`, {
+    method: "delete",
+  });
+  listings.value = listings.value.filter((listing) => listing.id !== id);
+};
 </script>

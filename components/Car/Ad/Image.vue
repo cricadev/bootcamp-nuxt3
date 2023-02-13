@@ -27,7 +27,12 @@ const image = useState("carImage", () => {
     image: null,
   };
 });
-
+onMounted(() => {
+  image.value = {
+    preview: null,
+    image: null,
+  };
+});
 const emits = defineEmits(["changeInput"]);
 
 const onImageUpload = (event) => {

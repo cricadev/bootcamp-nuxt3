@@ -15,7 +15,7 @@ const schema = Joi.object({
     .min(2)
     .required()
     .messages({ "any.required": "City is required", empty: "sadas" }),
-  numberOfSeats: Joi.string().max(100).min(1).required(),
+  numberOfSeats: Joi.number().max(100).min(1).required(),
   features: Joi.array().items(Joi.string()).required(),
   description: Joi.string().min(40).required(),
   image: Joi.string().required(),
@@ -54,9 +54,9 @@ export default defineEventHandler(async (event) => {
     data: {
       image,
       name,
-      numberOfSeats,
-      miles,
-      price,
+      numberOfSeats: parseInt(numberOfSeats),
+      miles: parseInt(miles),
+      price: parseInt(price),
       features,
       description,
       listerId,

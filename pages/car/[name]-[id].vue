@@ -2,7 +2,6 @@
   <div v-if="car">
     <!-- ? CAR DETAIL PAGE-->
 
-    {{ user.id }}
     <CarDetailHero :car="car"></CarDetailHero>
     <CarDetailAttrs :features="car.features"></CarDetailAttrs>
     <CarDetailDescription :description="car.description"></CarDetailDescription>

@@ -36,6 +36,19 @@
         @change-input="onChangeInput"
       ></CarAdTextArea>
       <CarAdImage @change-input="onChangeInput"></CarAdImage>
+      <div class="">
+        <button
+          class="bg-blue-400 text-white rounded py-2 px-7 mt-3"
+          :disabled="isButtonDisabled"
+          @click="handleClick"
+          :class="{
+            'opacity-50 cursor-not-allowed': isButtonDisabled,
+          }"
+        >
+          Submit
+        </button>
+        <p class="mt-3 text-red-400" v-if="errorMessage">{{ errorMessage }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +56,10 @@
 definePageMeta({
   layout: "custom",
 });
+
 const { makes } = useCars();
+const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 
 const info = useState("adInfo", () => {
   return {
@@ -60,6 +76,21 @@ const info = useState("adInfo", () => {
   };
 });
 
+const errorMessage = ref("");
+onMounted(() => {
+  info.value = {
+    make: "",
+    model: "",
+    year: "",
+    miles: "",
+    price: "",
+    city: "",
+    seats: "",
+    features: "",
+    description: "",
+    image: null,
+  };
+});
 const onChangeInput = (data, name) => {
   info.value[name] = data;
 };
@@ -87,32 +118,57 @@ const inputs = [
     id: 4,
     title: "Price *",
     name: "price",
-    placeholder: "10000",
+    placeholder: "85000",
   },
   {
     id: 5,
     title: "City *",
     name: "city",
-    placeholder: "New York",
+    placeholder: "Austin",
   },
   {
     id: 6,
-    title: "Seats *",
+    title: "Number of Seats *",
     name: "seats",
     placeholder: "5",
   },
-
   {
-    id: 8,
-    title: "Image *",
-    name: "image",
-    placeholder: "Image",
-  },
-  {
-    id: 9,
+    id: 7,
     title: "Features *",
     name: "features",
-    placeholder: "Features",
+    placeholder: "Leather Interior, No Accidents",
   },
 ];
+
+const isButtonDisabled = computed(() => {
+  for (let key in info.value) {
+    if (!info.value[key]) return true;
+  }
+  return false;
+});
+
+const handleClick = async () => {
+  const fileName = Math.floor(Math.random() * 10000000000000000);
+  const { data, error } = await supabase.storage
+    .from("images")
+    .upload("public/" + fileName, info.value.image);
+  const body = {
+    ...info.value,
+    features: info.value.features.split(", "),
+    numberOfSeats: info.value.seats,
+    name: `${info.value.make} ${info.value.model}`,
+    listerId: user.value.id,
+    image: "asssssss",
+  };
+  delete body.seats;
+  try {
+    const response = await $fetch("/api/car/listings", {
+      method: "post",
+      body,
+    });
+    navigateTo("/profile/listings");
+  } catch (err) {
+    errorMessage.value = err.statusMessage;
+  }
+};
 </script>
